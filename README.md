@@ -15,7 +15,6 @@ import React from 'react';
 import ProductFruits from 'react-product-fruits';
 
 export class App extends React.Component {
-
   render () {
     const { appUser } = this.props;
     
@@ -28,7 +27,7 @@ export class App extends React.Component {
     };
 
     return (
-      <div className="app">
+      <div>
         <ProductFruits projectCode="YOUR_PROJECT_CODE" language="ISO-2 CODE OF LOCALIZATION LANGUAGE" { ...userInfo } />
       </div>
     );
