@@ -23,7 +23,8 @@ export class App extends React.Component {
       email: appUser.email,
       firstname: appUser.firstname,
       lastname: appUser.lastname,
-      signUpAt: appUser.signUpAt
+      signUpAt: appUser.signUpAt,
+      role: appUser.role
     };
 
     return (

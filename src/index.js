@@ -47,10 +47,11 @@ export default class ProductFruits extends Component {
       email,
       firstname,
       lastname,
-      signUpAt
+      signUpAt,
+      role
     } = props;
 
-    window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt };
+    window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role };
 
     window.productFruits = window.productFruits || {};
 
