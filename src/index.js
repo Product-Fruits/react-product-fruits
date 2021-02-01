@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const isDOMReady = window && window.document && window.document.createElement;
@@ -9,37 +9,13 @@ export default class ProductFruits extends Component {
     language: PropTypes.string.isRequired
   };
 
-  constructor(props) {
-    super(props);
-
-    const {
-      projectCode,
-      language
-    } = props;
-
-    if (!projectCode || !language || !isDOMReady) {
-      return;
-    }
-
-    if (!window.productFruits) {
-      this.setUserConfig(props);
-
-      (function (w, d, u, c) {
-        var a = d.getElementsByTagName('head')[0];
-        var r = d.createElement('script'); r.async = 1;
-        r.src = u + '?c=' + c;
-        a.appendChild(r);
-      })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate() {
     if (!isDOMReady) return;
 
-    this.setUserConfig(nextProps);
+    this.setUserConfig(this.props);
   }
 
-  setUserConfig(props) {
+  setUserConfig(reactProps) {
     const {
       projectCode,
       language,
@@ -48,19 +24,57 @@ export default class ProductFruits extends Component {
       firstname,
       lastname,
       signUpAt,
-      role
-    } = props;
+      role,
+      props
+    } = reactProps;
 
-    window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role };
+    if (!window.productFruits) {
+      window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role, props: props };
+    } else {
+      window.productFruits.identifyUser({
+        username,
+        email,
+        firstname,
+        lastname,
+        signUpAt,
+        role,
+        props
+      });
+    }
 
     window.productFruits = window.productFruits || {};
 
+    const fireLanguageChangedEvent = window.productFruits.language && window.productFruits.language !== language;
+
     window.productFruits.language = language;
     window.productFruits.code = projectCode;
+
+    if (fireLanguageChangedEvent) {
+      document.dispatchEvent(new CustomEvent('pf:language_changed'));
+    }
   }
 
-  shouldComponentUpdate() {
-    return false;
+  componentDidMount() {
+    const {
+      projectCode,
+      language
+    } = this.props;
+
+    if (!projectCode || !language || !isDOMReady) {
+      console.info('PF - dom is not ready');
+      return;
+    }
+
+    if (!window.productFruits) {
+      this.setUserConfig(this.props);
+
+      (function (w, d, u, c) {
+        var a = d.getElementsByTagName('head')[0];
+        var r = d.createElement('script'); r.async = 1;
+        r.src = u + '?c=' + c;
+        a.appendChild(r);
+      })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
+    }
   }
 
   componentWillUnmount() {
