@@ -68,20 +68,25 @@ export default class ProductFruits extends Component {
     if (!window.productFruits) {
       this.setUserConfig(this.props);
 
-      (function (w, d, u, c) {
+      ((w, d, u, c) => {
         var a = d.getElementsByTagName('head')[0];
         var r = d.createElement('script'); r.async = 1;
         r.src = u + '?c=' + c;
+        this.scriptElement = r;
         a.appendChild(r);
       })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
     }
   }
 
   componentWillUnmount() {
-    if (!isDOMReady || !window.productFruits) return false;
+    if (!isDOMReady || !window.productFruits || !window.productFruits.services) return false;
+
+    window.productFruits.services.destroy();
 
     delete window.productFruits;
     delete window.productFruitsUser;
+
+    this.scriptElement && this.scriptElement.remove();
   }
 
   render() {
