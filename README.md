@@ -36,4 +36,4 @@ export class App extends React.Component {
 }
 ```
 
-It loads the Product Fruits code snippet and passes required information to it. See https://productfruits.com/docs for more information.
+It loads the Product Fruits code snippet and passes required information to it. See https://productfruits.com/ for more information.
