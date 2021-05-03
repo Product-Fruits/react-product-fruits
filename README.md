@@ -1,5 +1,5 @@
 # react-product-fruits
-A React component to use Product Fruits in React apps.
+A React component to use [the onboarding and user engagement tool Product Fruits](https://productfruits.com) in React apps.
 
 ## Installation
 ```bash
