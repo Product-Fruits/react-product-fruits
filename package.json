@@ -1,6 +1,6 @@
 {
   "name": "react-product-fruits",
-  "version": "1.3.3",
+  "version": "1.3.5",
   "description": "A component to initialize Product Fruits in a React application.",
   "main": "lib/index.js",
   "dependencies": {
@@ -12,6 +12,9 @@
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-0": "^6.1.18"
+  },
+  "resolutions": {
+    "graceful-fs": "4.2.4"
   },
   "scripts": {
     "compile": "babel --presets es2015,react,stage-0 -d lib/ src/"
