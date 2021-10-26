@@ -28,7 +28,7 @@ export default class ProductFruits extends Component {
       props
     } = reactProps;
 
-    if (!window.productFruits) {
+    if (!window.productFruits || !window.productFruits.identifyUser) {
       window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role, props: props };
     } else {
       window.productFruits.identifyUser({
