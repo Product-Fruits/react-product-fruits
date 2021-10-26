@@ -1,5 +1,5 @@
 # react-product-fruits
-A React component to use Product Fruits in React apps.
+A React component to use [the onboarding and user engagement tool Product Fruits](https://productfruits.com) in React apps.
 
 ## Installation
 ```bash
@@ -36,4 +36,4 @@ export class App extends React.Component {
 }
 ```
 
-It loads the Product Fruits code snippet and passes required information to it. See https://productfruits.com/docs for more information.
+It loads the Product Fruits code snippet and passes required information to it. See https://productfruits.com/ for more information.
