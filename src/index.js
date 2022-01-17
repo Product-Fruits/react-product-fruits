@@ -61,7 +61,7 @@ export default class ProductFruits extends Component {
     } = this.props;
 
     if (!projectCode || !language || !isDOMReady) {
-      console.info('PF - dom is not ready');
+      console.info('PF - dom is not ready, projectCode is not set or language is not set');
       return;
     }
 
@@ -76,6 +76,12 @@ export default class ProductFruits extends Component {
         a.appendChild(r);
       })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
     }
+
+    if (window.productFruitsUnmounted && window.productFruitsInit) {
+      window.productFruitsInit();
+
+      delete window.productFruitsUnmounted;
+    }
   }
 
   componentWillUnmount() {
@@ -85,6 +91,8 @@ export default class ProductFruits extends Component {
 
     delete window.productFruits;
     delete window.productFruitsUser;
+
+    window.productFruitsUnmounted = true;
 
     this.scriptElement && this.scriptElement.remove();
   }
