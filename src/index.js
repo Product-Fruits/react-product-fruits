@@ -1,103 +1,110 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { useProductFruits, selectIsProductFruitsReady } from './hooks';
+
+export {
+    useProductFruits,
+    selectIsProductFruitsReady
+}
+
 const isDOMReady = window && window.document && window.document.createElement;
 
 export default class ProductFruits extends Component {
-  static propTypes = {
-    projectCode: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
-  };
+    static propTypes = {
+        projectCode: PropTypes.string.isRequired,
+        language: PropTypes.string.isRequired
+    };
 
-  componentDidUpdate() {
-    if (!isDOMReady) return;
+    componentDidUpdate() {
+        if (!isDOMReady) return;
 
-    this.setUserConfig(this.props);
-  }
-
-  setUserConfig(reactProps) {
-    const {
-      projectCode,
-      language,
-      username,
-      email,
-      firstname,
-      lastname,
-      signUpAt,
-      role,
-      props
-    } = reactProps;
-
-    if (!window.productFruits || !window.productFruits.identifyUser) {
-      window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role, props: props };
-    } else {
-      window.productFruits.identifyUser({
-        username,
-        email,
-        firstname,
-        lastname,
-        signUpAt,
-        role,
-        props
-      });
+        this.setUserConfig(this.props);
     }
 
-    window.productFruits = window.productFruits || {};
+    setUserConfig(reactProps) {
+        const {
+            projectCode,
+            language,
+            username,
+            email,
+            firstname,
+            lastname,
+            signUpAt,
+            role,
+            props
+        } = reactProps;
 
-    const fireLanguageChangedEvent = window.productFruits.language && window.productFruits.language !== language;
+        if (!window.productFruits || !window.productFruits.identifyUser) {
+            window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role, props: props };
+        } else {
+            window.productFruits.identifyUser({
+                username,
+                email,
+                firstname,
+                lastname,
+                signUpAt,
+                role,
+                props
+            });
+        }
 
-    window.productFruits.language = language;
-    window.productFruits.code = projectCode;
+        window.productFruits = window.productFruits || {};
 
-    if (fireLanguageChangedEvent) {
-      document.dispatchEvent(new CustomEvent('pf:language_changed'));
+        const fireLanguageChangedEvent = window.productFruits.language && window.productFruits.language !== language;
+
+        window.productFruits.language = language;
+        window.productFruits.code = projectCode;
+
+        if (fireLanguageChangedEvent) {
+            document.dispatchEvent(new CustomEvent('pf:language_changed'));
+        }
     }
-  }
 
-  componentDidMount() {
-    const {
-      projectCode,
-      language
-    } = this.props;
+    componentDidMount() {
+        const {
+            projectCode,
+            language
+        } = this.props;
 
-    if (!projectCode || !language || !isDOMReady) {
-      console.info('PF - dom is not ready, projectCode is not set or language is not set');
-      return;
+        if (!projectCode || !language || !isDOMReady) {
+            console.info('PF - dom is not ready, projectCode is not set or language is not set');
+            return;
+        }
+
+        if (!window.productFruits) {
+            this.setUserConfig(this.props);
+
+            ((w, d, u, c) => {
+                var a = d.getElementsByTagName('head')[0];
+                var r = d.createElement('script'); r.async = 1;
+                r.src = u + '?c=' + c;
+                this.scriptElement = r;
+                a.appendChild(r);
+            })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
+        }
+
+        if (window.productFruitsUnmounted && window.productFruitsInit) {
+            window.productFruitsInit();
+
+            delete window.productFruitsUnmounted;
+        }
     }
 
-    if (!window.productFruits) {
-      this.setUserConfig(this.props);
+    componentWillUnmount() {
+        if (!isDOMReady || !window.productFruits || !window.productFruits.services) return false;
 
-      ((w, d, u, c) => {
-        var a = d.getElementsByTagName('head')[0];
-        var r = d.createElement('script'); r.async = 1;
-        r.src = u + '?c=' + c;
-        this.scriptElement = r;
-        a.appendChild(r);
-      })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
+        window.productFruits.services.destroy();
+
+        delete window.productFruits;
+        delete window.productFruitsUser;
+
+        window.productFruitsUnmounted = true;
+
+        this.scriptElement && this.scriptElement.remove();
     }
 
-    if (window.productFruitsUnmounted && window.productFruitsInit) {
-      window.productFruitsInit();
-
-      delete window.productFruitsUnmounted;
+    render() {
+        return false;
     }
-  }
-
-  componentWillUnmount() {
-    if (!isDOMReady || !window.productFruits || !window.productFruits.services) return false;
-
-    window.productFruits.services.destroy();
-
-    delete window.productFruits;
-    delete window.productFruitsUser;
-
-    window.productFruitsUnmounted = true;
-
-    this.scriptElement && this.scriptElement.remove();
-  }
-
-  render() {
-    return false;
-  }
 }
