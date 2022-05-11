@@ -13,7 +13,8 @@ const isDOMReady = window && window.document && window.document.createElement;
 export default class ProductFruits extends Component {
     static propTypes = {
         projectCode: PropTypes.string.isRequired,
-        language: PropTypes.string.isRequired
+        language: PropTypes.string.isRequired,
+        environment: PropTypes.string
     };
 
     componentDidUpdate() {
@@ -64,12 +65,19 @@ export default class ProductFruits extends Component {
     componentDidMount() {
         const {
             projectCode,
-            language
+            language,
+            environment
         } = this.props;
 
         if (!projectCode || !language || !isDOMReady) {
             console.info('PF - dom is not ready, projectCode is not set or language is not set');
             return;
+        }
+
+        let scriptPath = 'https://app.productfruits.com/static/script.js';
+        if (environment) {
+            window.productFruitsEnv = environment;
+            scriptPath = `https://app.${environment}.productfruits.com/static/script.js`;
         }
 
         if (!window.productFruits) {
@@ -81,7 +89,7 @@ export default class ProductFruits extends Component {
                 r.src = u + '?c=' + c;
                 this.scriptElement = r;
                 a.appendChild(r);
-            })(window, document, 'https://app.productfruits.com/static/script.js', projectCode);
+            })(window, document, scriptPath, projectCode);
         }
 
         if (window.productFruitsUnmounted && window.productFruitsInit) {
