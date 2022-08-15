@@ -1,6 +1,6 @@
 {
   "name": "react-product-fruits",
-  "version": "1.4.5",
+  "version": "1.4.8",
   "description": "A component to initialize Product Fruits in a React application.",
   "main": "lib/index.js",
   "peerDependencies": {

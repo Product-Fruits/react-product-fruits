@@ -14,6 +14,7 @@ export default class ProductFruits extends Component {
     static propTypes = {
         projectCode: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
         environment: PropTypes.string
     };
 
@@ -35,6 +36,8 @@ export default class ProductFruits extends Component {
             role,
             props
         } = reactProps;
+
+        if (!username) throw new Error('The "username" prop is required. Also, DO NOT hard code it. Use conditional rendering if user info is loaded asynchronously.');
 
         if (!window.productFruits || !window.productFruits.identifyUser) {
             window.productFruitsUser = { username: username, email: email, firstname: firstname, lastname: lastname, signUpAt: signUpAt, role: role, props: props };
