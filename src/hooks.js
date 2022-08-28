@@ -15,7 +15,7 @@ export function useProductFruits(callback, deps) {
             callback(window.productFruits.api);
         }
 
-        if (window.productFruitsIsReady) {
+        if (window.productFruitsIsReady && window.productFruits && window.productFruits.api) {
             callback(window.productFruits.api);
         }
     }, [_deps, callback]);
