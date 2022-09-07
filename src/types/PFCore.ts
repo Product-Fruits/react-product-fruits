@@ -5,6 +5,7 @@ export interface ProductFruitsComponentProps {
     user: ProductFruitsUserObject;
     dontDestroy?: boolean;
     config?: ProductFruitsInitOptions;
+    debug?: boolean;
 }
 
 declare global {
