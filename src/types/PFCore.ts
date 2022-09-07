@@ -1,19 +1,18 @@
+
 export interface ProductFruitsComponentProps {
     workspaceCode: string;
     language: string;
-    user: UserObject;
+    user: ProductFruitsUserObject;
+    dontDestroy?: boolean;
+    config?: ProductFruitsInitOptions;
 }
 
-export interface UserObject {
-    username: string;
-    email?: string;
-    role?: string;
-    signUpAt?: string;
-    firstname?: string;
-    lastname?: string;
-    props?: UserCustomProps
-}
-
-export interface UserCustomProps {
-    [key: string]: string | number | UserCustomProps;
+declare global {
+    interface Window {
+        productFruitsIsReady?: boolean;
+        productFruitsReady?: () => void;
+        productFruits?: {
+            api?: any
+        }
+    }
 }
