@@ -35,3 +35,5 @@ export function ProductFruits(props: ProductFruitsComponentProps) {
 
     return null;
 }
+
+export * from './hooks';
