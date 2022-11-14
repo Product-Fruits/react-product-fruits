@@ -30,9 +30,17 @@ export type ProductFruitsUserObject = {
     signUpAt?: string;
     firstname?: string;
     lastname?: string;
-    props?: UserCustomProps
+    props?: UserCustomProps;
+    group?: {
+        groupId?: string;
+        props?: UserGroupCustomProps
+    }
 }
 
 export type UserCustomProps = {
+    [key: string]: string | number | Array<string> | Array<number> | UserCustomProps;
+}
+
+export type UserGroupCustomProps = {
     [key: string]: string | number | Array<string> | Array<number> | UserCustomProps;
 }
