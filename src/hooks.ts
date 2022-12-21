@@ -1,10 +1,10 @@
 import { productFruits } from 'product-fruits';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 export type UseProductFruitsApiCallback = (pfObject: any) => void;
 
 export function useProductFruitsApi(callback: (api: any) => Function | void | undefined, deps: React.DependencyList) {
-    const _deps = useMemo(() => [...deps], [deps]);
+    const memoizedCallback = useCallback(callback, deps);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -12,11 +12,11 @@ export function useProductFruitsApi(callback: (api: any) => Function | void | un
         let disposer: Function;
 
         window.productFruitsReady = function () {
-            disposer = callback(window.productFruits?.api) as Function;
+            disposer = memoizedCallback(window.productFruits?.api) as Function;
         }
 
         if (window.productFruitsIsReady && window.productFruits && window.productFruits.api) {
-            disposer = callback(window.productFruits.api) as Function;
+            disposer = memoizedCallback(window.productFruits.api) as Function;
         }
 
         return () => {
@@ -24,7 +24,7 @@ export function useProductFruitsApi(callback: (api: any) => Function | void | un
 
             typeof disposer == 'function' && disposer();
         }
-    }, [_deps, callback]);
+    }, [...deps, memoizedCallback]);
 }
 
 export function isProductFruitsReady() {
