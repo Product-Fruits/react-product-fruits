@@ -3,7 +3,8 @@ export interface ProductFruitsComponentProps {
     workspaceCode: string;
     language: string;
     user: ProductFruitsUserObject;
-    dontDestroy?: boolean;
+    dontDestroy?: boolean; // to be removed
+    lifeCycle?: 'neverUnmount' | 'unmount';
     config?: ProductFruitsInitOptions;
     debug?: boolean;
 }
