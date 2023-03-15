@@ -10,17 +10,20 @@ export function useProductFruitsApi(callback: (api: any) => Function | void | un
         if (typeof window === 'undefined') return;
 
         let disposer: Function;
-
-        window.productFruitsReady = function () {
+        const readyListener = () => {
             disposer = memoizedCallback(window.productFruits?.api) as Function;
         }
 
         if (window.productFruitsIsReady && window.productFruits && window.productFruits.api) {
             disposer = memoizedCallback(window.productFruits.api) as Function;
+
+            window.removeEventListener('productfruits_ready', readyListener);
+        } else {
+            window.addEventListener('productfruits_ready', readyListener, { once: true });
         }
 
         return () => {
-            window.productFruitsReady = undefined;
+            window.removeEventListener('productfruits_ready', readyListener);
 
             typeof disposer == 'function' && disposer();
         }

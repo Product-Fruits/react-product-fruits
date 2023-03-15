@@ -387,10 +387,10 @@ picomatch@^2.2.2:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-product-fruits@^1.0.21:
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/product-fruits/-/product-fruits-1.0.21.tgz#110b934bb9c1bf410e7f6c1820953610ff61a5ef"
-  integrity sha512-Zu7ct8ERSGHx1qOVsVFxsNJROIOy6ukGvmsJ5JjRv+IQerFp/f7RsK9OXO6zf127uJL4LT7WuYpghNV+d+rTSA==
+product-fruits@^1.0.23:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/product-fruits/-/product-fruits-1.0.23.tgz#eff107cb7bb3f2d58cb4b9851060556b436248c9"
+  integrity sha512-1mY/DoCCmg9y8QdtTcAz/LFdus4AT3LJfqp/Pv1vEvlSTRx3BrRWo4QImZs3GulQnXO72k2KBtOuKnq021a3Zw==
 
 randombytes@^2.1.0:
   version "2.1.0"
