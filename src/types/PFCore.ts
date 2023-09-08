@@ -32,6 +32,10 @@ export type ProductFruitsUserObject = {
     firstname?: string;
     lastname?: string;
     props?: UserCustomProps;
+    hmac?: {
+        hash: string,
+        expiration?: string | null | undefined
+    };
     group?: {
         groupId?: string;
         props?: UserGroupCustomProps
