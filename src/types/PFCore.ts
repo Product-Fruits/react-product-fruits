@@ -43,9 +43,9 @@ export type ProductFruitsUserObject = {
 }
 
 export type UserCustomProps = {
-    [key: string]: string | number | Array<string> | Array<number> | UserCustomProps;
+    [key: string]: string | number | boolean | Array<string> | Array<number> | UserCustomProps;
 }
 
 export type UserGroupCustomProps = {
-    [key: string]: string | number | Array<string> | Array<number> | UserCustomProps;
+    [key: string]: string | number | boolean | Array<string> | Array<number> | UserCustomProps;
 }
