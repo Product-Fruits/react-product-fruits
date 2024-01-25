@@ -1,6 +1,6 @@
 {
   "name": "react-product-fruits",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "A React component to initialize Product Fruits in React applications",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/product-fruits/react-product-fruits.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/product-fruits/react-product-fruits/issues"
   },
@@ -37,6 +37,6 @@
     "react": ">= 17.0.0"
   },
   "dependencies": {
-    "product-fruits": "^1.0.23"
+    "product-fruits": "^1.0.25"
   }
 }

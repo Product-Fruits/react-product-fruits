@@ -22,6 +22,11 @@ declare global {
 export type ProductFruitsInitOptions = {
     disableLocationChangeDetection?: boolean;
     disableBannersAutoMargin?: boolean;
+    customNavigation?: {
+        use?: boolean;
+        onGet?: () => string;
+        navigate?: (location: string) => void
+    }
 }
 
 export type ProductFruitsUserObject = {
