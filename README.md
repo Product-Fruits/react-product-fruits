@@ -1,3 +1,5 @@
+Please note that ongoing updates are now being made in the `v2` branch of this repository. 
+
 # react-product-fruits
 A React component to use [the onboarding and user engagement tool Product Fruits](https://productfruits.com) in React apps.
 
