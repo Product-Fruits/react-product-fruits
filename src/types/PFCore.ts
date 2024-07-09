@@ -27,6 +27,8 @@ export type ProductFruitsInitOptions = {
         onGet?: () => string;
         navigate?: (location: string) => void
     }
+    hideInAppCenterLauncher?: boolean; // Added option
+    useCustomNavigation?: boolean;     // Added option
 }
 
 export type ProductFruitsUserObject = {
