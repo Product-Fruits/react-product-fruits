@@ -22,6 +22,7 @@ declare global {
 export type ProductFruitsInitOptions = {
     disableLocationChangeDetection?: boolean;
     disableBannersAutoMargin?: boolean;
+    hideInAppCenterLauncher?: boolean;
     customNavigation?: {
         use?: boolean;
         onGet?: () => string;
